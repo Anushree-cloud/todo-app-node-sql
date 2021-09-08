@@ -41,79 +41,40 @@ const addTodo = (req, res) => {
     })
 }
 
-// //update a todo
-// const updateTodo = (req, res) => {
-//     let currentTodo = Todos.findById(req.params.id)
-//     if(currentTodo){
-//         let index = Todos.findByIndex(req.params.id)
-//         let updatedTodo = {
-//             id: currentTodo.id,
-//             title: req.body.title ? req.body.title : currentTodo.title,
-//             is_completed: req.body.is_completed ? req.body.is_completed : currentTodo.is_completed,
-//             created_at: currentTodo.created_at
-//         }
-//         Todos.findAll((todos) => {
-//             todos[index] = updatedTodo
-//             Todos.save(todos, () => {
-//                 res.json({
-//                     data: {
-//                         message: `Todo Updated with id: ${req.params.id}`,
-//                         todos: todos,
-//                         updatedTodo: updatedTodo
-//                     }
-//                 })
-//             })
-//         })
-//     }
-//     else{
-//         res.json({
-//             data: {
-//                 message: "Todo not found..."
-//             }
-//         })
-//     }
-// }
+//update a todo
+const updateTodo = (req, res) => {
+    let id = req.params.id
+    Todos.findById(id, (todo) => {
+        let updatedTodo = {
+            title: req.body.title ? req.body.title : todo.title,
+            is_completed: req.body.is_completed ? req.body.is_completed : todo.is_completed
+        }
+        Todos.updateAndSave(updatedTodo, id, () => {
+            res.json({
+                data: {
+                    message: `Todo with Id: ${id} updated successfully...`,
+                    todo: updatedTodo
+                }
+            })
+        })
+    })
+}
 
-// //delete a todo
-// const deleteTodo = (req, res) => {
-//     let currentTodo = Todos.findById(req.params.id)
-//     if(currentTodo){
-//         let index = Todos.findByIndex(req.params.id)
-//         Todos.findAll((todos) => {
-//             todos.splice(index, 1)
-//             Todos.save(todos, () => {
-//                 res.json({
-//                     data: {
-//                         message: `Todo Deleted with id ${req.params.id}`,
-//                         todos: todos
-//                     }
-//                 })
-//             })
-//         })
-//     }
-//     else{
-//         res.json({
-//             data: {
-//                 message: "Todo not found..."
-//             }
-//         })
-//     }
-// }
-
-// //delete all todos
-// const deleteAllTodos = (req, res) => {
-//     Todos.findAll((todos) => {
-//         Todos.save([], () => {
-//             res.json({
-//                 data: {
-//                     message: "All Todos Deleted...",
-//                     todos: todos
-//                 }
-//             })
-//         })
-//     })
-// }
+//delete a todo
+const deleteTodo = (req, res) => {
+    let id = req.params.id
+    Todos.deleteAndSave(id , () => {
+        Todos.findAll((todos) => {
+            res.json({
+                data: {
+                    message: `Todo Deleted with id: ${id}`,
+                    todos: todos
+                }
+            })
+        })
+    })
+}
 
 module.exports = {
-    getAllTodos, getSingleTodo, addTodo
+    getAllTodos, getSingleTodo, addTodo, updateTodo, deleteTodo
 }
