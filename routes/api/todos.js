@@ -18,4 +18,4 @@ todoRouter.put('/todos/:id', Todo.updateTodo)
 todoRouter.delete('/todos/:id', Todo.deleteTodo)
 
 
-module.exports = { todoRouter }
+module.exports = todoRouter

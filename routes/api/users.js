@@ -18,4 +18,4 @@ userRouter.put('/todos/:id', User.updateUser)
 userRouter.delete('/todos/:id', User.deleteUser)
 
 
-module.exports = { userRouter }
+module.exports = userRouter

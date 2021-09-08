@@ -1,9 +1,11 @@
 const express = require('express')
-const router = require('./routes/api/todos')
+const todoRouter = require('./routes/api/todos')
+const userRouter = require('./routes/api/users')
 
 const app = express()
 
-app.use(router.todoRouter)
+app.use(todoRouter)
+app.use(userRouter)
 
 const PORT = process.env.PORT || 8000
 
