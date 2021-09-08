@@ -11,13 +11,11 @@ todoRouter.get('/todos/:id', Todo.getSingleTodo)
 //post
 todoRouter.post('/todos', Todo.addTodo)
 
-// //update
-// todoRouter.put('/todos/:id', Todo.updateTodo)
+//update
+todoRouter.put('/todos/:id', Todo.updateTodo)
 
-// //delete single
-// todoRouter.delete('/todos/:id', Todo.deleteTodo)
+//delete single
+todoRouter.delete('/todos/:id', Todo.deleteTodo)
 
-// //delete all
-// todoRouter.delete('/todos', Todo.deleteAllTodos)
 
 module.exports = { todoRouter }
