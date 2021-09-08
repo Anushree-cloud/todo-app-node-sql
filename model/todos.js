@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 db.connect((error) => {
     if(error)
         console.log(error)
-    console.log('Connected to mysql database.');
+    console.log('Connected to todo_app database, todos table.');
 })
 
 

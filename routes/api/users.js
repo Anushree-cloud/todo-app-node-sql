@@ -3,19 +3,19 @@ const userRouter = express.Router()
 const User = require('../../controller/users')
 
 //get all
-userRouter.get('/todos', User.getAllUsers)
+userRouter.get('/users', User.getAllUsers)
 
 //get single
-userRouter.get('/todos/:id', User.getSingleUser)
+userRouter.get('/users/:id', User.getSingleUser)
 
 //post
-userRouter.post('/todos', User.addUser)
+userRouter.post('/users', User.addUser)
 
 //update
-userRouter.put('/todos/:id', User.updateUser)
+userRouter.put('/users/:id', User.updateUser)
 
 //delete single
-userRouter.delete('/todos/:id', User.deleteUser)
+userRouter.delete('/users/:id', User.deleteUser)
 
 
 module.exports = userRouter
