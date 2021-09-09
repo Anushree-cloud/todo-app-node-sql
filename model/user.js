@@ -33,6 +33,14 @@ const findById = (id, callback) => {
     })
 }
 
+const findByEmailAndPassword = (data, callback) =>  {
+    let sql = `SELECT * FROM users WHERE email=${data.email} AND password=${data.password}`
+    db.query(sql, (error, user) => {
+        if(error) throw error
+        callback(user)
+    })
+}
+
 //save to database:
 const save = (data, callback) => {
     let sql = 'INSERT INTO users SET ?'
@@ -61,5 +69,5 @@ const deleteAndSave = (id, callback) => {
 }
 
 module.exports = {
-    findAll, findById, save, updateAndSave, deleteAndSave
+    findAll, findById, findByEmailAndPassword, save, updateAndSave, deleteAndSave
 }
