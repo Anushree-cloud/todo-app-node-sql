@@ -13,6 +13,19 @@ const getAllTodos = (req, res) => {
     })
 }
 
+//get all todos of a particular user
+const getAllTodosOfSingleUser = (req, res) => {
+    let id = req.params.userId
+    Todos.findAllByUserId(id, (todo) => {
+        res.json({
+            data: {
+                message: `All Todos Fetched for User (id: ${id})`,
+                todos: todo
+            }
+        })
+    })
+}
+
 //get a single todo
 const getSingleTodo = (req, res) => {
     Todos.findById(req.params.id, (todo) => {
@@ -25,11 +38,21 @@ const getSingleTodo = (req, res) => {
     })
 }
 
+//get todos with user details
+const getTodoUserDetails = (req, res) => {
+    Todos.findAllTodosWithUsers((details) => {
+        res.json({
+            data: details
+        })
+    })
+}
+
 //post a todo
 const addTodo = (req, res) => {
     let newTodo = {
         title: req.body.title,
-        is_completed: req.body.is_completed
+        is_completed: req.body.is_completed,
+        user_id: req.body.user_id
     }
     Todos.save(newTodo, () => {
         res.json({
@@ -76,5 +99,5 @@ const deleteTodo = (req, res) => {
 }
 
 module.exports = {
-    getAllTodos, getSingleTodo, addTodo, updateTodo, deleteTodo
+    getAllTodos, getAllTodosOfSingleUser, getTodoUserDetails, getSingleTodo, addTodo, updateTodo, deleteTodo
 }

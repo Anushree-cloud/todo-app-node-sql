@@ -28,6 +28,7 @@ const getSingleUser = (req, res) => {
 
 //post a User
 const addUser = (req, res) => {
+    console.log(req.body);
     let newUser = {
         name: req.body.name,
         email: req.body.email,

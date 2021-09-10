@@ -44,7 +44,7 @@ const findByEmailAndPassword = (data, callback) =>  {
 //save to database:
 const save = (data, callback) => {
     let sql = 'INSERT INTO users SET ?'
-    db.query(sql, { name: data.name, email: data.email, password: data.password}, (error) => {
+    db.query(sql, { name: data.name, email: data.email, password: data.password }, (error) => {
         if(error) throw error
         callback()
     })
@@ -52,7 +52,7 @@ const save = (data, callback) => {
 
 //update and save to database:
 const updateAndSave = (data, id, callback) => {
-    let sql = `UPDATE users SET name=${data.name}, email=${data.email}, password=${data.password} WHERE id=${id}`
+    let sql = `UPDATE users SET name='${data.name}', email='${data.email}', password='${data.password}' WHERE id=${id}`
     db.query(sql, (error, result) => {
         if(error) throw error
         callback()

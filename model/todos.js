@@ -26,17 +26,35 @@ const findAll = (callback) => {
 
 //get a single todo by id from database 
 const findById = (id, callback) => {
-    let sql = `SELECT * FROM todos Where id=${id}`
+    let sql = `SELECT * FROM todos WHERE id=${id}`
     db.query(sql, (error, todo) => {
         if(error) throw error
         callback(todo)
     })
 }
 
+//get all todos of a single user
+const findAllByUserId = (id, callback) => {
+    let sql = `SELECT * FROM todos WHERE user_id = ${id}`
+    db.query(sql, (error, todo) => {
+        if(error) throw error
+        callback(todo)
+    })
+}
+
+//get todos and user details together (inner join)
+const findAllTodosWithUsers = (callback) => {
+    let sql = `SELECT todos.id, todos.title, todos.is_completed, todos.created_at, todos.user_id, users.name FROM todos INNER JOIN users ON todos.user_id = users.id`
+    db.query(sql, (error, details) => {
+        if(error) throw error
+        callback(details)
+    })
+}
+
 //save to database:
 const save = (data, callback) => {
     let sql = 'INSERT INTO todos SET ?'
-    db.query(sql, { title: data.title, is_completed: data.is_completed }, (error) => {
+    db.query(sql, { title: data.title, is_completed: data.is_completed, user_id: data.user_id }, (error) => {
         if(error) throw error
         callback()
     })
@@ -61,5 +79,5 @@ const deleteAndSave = (id, callback) => {
 }
 
 module.exports = {
-    findAll, findById, save, updateAndSave, deleteAndSave
+    findAll, findAllByUserId, findAllTodosWithUsers, findById, save, updateAndSave, deleteAndSave
 }
